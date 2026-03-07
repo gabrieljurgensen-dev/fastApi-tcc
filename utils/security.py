@@ -2,8 +2,13 @@ import jwt
 from datetime import datetime, timedelta
 import bcrypt
 from fastapi import HTTPException
+import os
+from dotenv import load_dotenv
 
-SECRET_KEY = "1234"
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
 
 def gerar_hash(senha: str) -> str:
     hashed = bcrypt.hashpw(senha.encode("utf-8"), bcrypt.gensalt())
