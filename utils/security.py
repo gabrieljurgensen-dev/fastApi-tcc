@@ -1,9 +1,26 @@
-from passlib.context import CryptContext
+import jwt
+from datetime import datetime, timedelta
+import bcrypt
+from fastapi import HTTPException
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+SECRET_KEY = "1234"
 
-def gerar_hash(senha: str):
-    return pwd_context.hash(senha)
+def gerar_hash(senha: str) -> str:
+    hashed = bcrypt.hashpw(senha.encode("utf-8"), bcrypt.gensalt())
+    return hashed.decode("utf-8")
 
-def verificar_senha(senha: str, hash_senha: str):
-    return pwd_context.verify(senha, hash_senha)
+def verificar_senha(senha: str, hash_senha: str) -> bool:
+    return bcrypt.checkpw(senha.encode("utf-8"), hash_senha.encode("utf-8"))
+
+def criar_token(usuario_id: int) -> str:
+    payload = {"id": usuario_id, "exp": datetime.utcnow() + timedelta(hours=2)}
+    return jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+
+def decodificar_token(token: str) -> int:
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+        return payload["id"]
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token expirado")
+    except jwt.PyJWTError:
+        raise HTTPException(status_code=401, detail="Token inválido")
