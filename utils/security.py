@@ -4,7 +4,6 @@ import bcrypt
 from fastapi import HTTPException
 import os
 from dotenv import load_dotenv
-
 load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
