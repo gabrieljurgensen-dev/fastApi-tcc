@@ -23,15 +23,28 @@ API REST feita em Python usando FastAPI.
 
 https://github.com/gabrieljurgensen-dev/fastApi-tcc.git
 
-2. Instale as dependências
+2. Abra o projeto no terminal
 
+C:\seu_caminhp\fastApi-tcc\fastApi-tcc
+
+3. Use o caminho oficial do python
+
+C:\Python314\python.exe -m venv venv
+
+5. Ative o venv
+
+venv\Scripts\activate
+
+6. Instale as dependências
+
+pip install --upgrade pip
 pip install -r requirements.txt
 
-3. Execute a aplicação
+7. Execute a aplicação
 
 uvicorn main:app --reload
 
-4. Acesse a documentação automática da API
+8. Acesse a documentação automática da API
 
 http://127.0.0.1:8000/docs
 
