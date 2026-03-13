@@ -17,13 +17,11 @@ API REST feita em Python usando FastAPI.
 - Integração com MySQL
 - Autenticação de usuário
 
-## Endpoints principais
-
 ## Como executar
 
 1. Baixe o repositório
 
-https://github.com/seuusuario/fastApi-tcc.git
+https://github.com/gabrieljurgensen-dev/fastApi-tcc.git
 
 2. Instale as dependências
 
