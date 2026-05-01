@@ -2,6 +2,7 @@ from fastapi import FastAPI
 import os
 from routes import usuarios, login, grupos_viagem, roteiros, grupos_membros, gastos
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
@@ -17,6 +18,14 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/")
 def home():
     return {"mensagem": "API funcionando"}
+
